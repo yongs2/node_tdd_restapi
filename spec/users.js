@@ -62,3 +62,22 @@ describe('GET /users/:id', () => {
         })
     })
 });
+
+describe('DELETE /users/:id', () => {
+    describe('성공', () => {
+        it('유저 객체를 삭제하면, 204 응답', done => {
+            request(app)
+                .delete('/users/3')
+                .expect(204)
+                .end(done)
+        })
+    })
+    describe('실패', () => {
+        it('id 가 정수가 아니면 400을 응답', (done) => {
+            request(app)
+                .delete('/users/three')
+                .expect(400)
+                .end(done)
+        })
+    })
+});

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const users = require('../model/users')
+var users = require('../model/users')
 
 /* GET users listing. */
 router.get('/', (req, res) => {
@@ -29,6 +29,18 @@ router.get('/:id', (req, res) => {
     else {
       res.json(user);
     }
+  }
+});
+
+router.delete('/:id', (req, res) => {
+  console.log('req.params=', req.params);
+  const id = parseInt(req.params.id, 10);
+  if(Number.isNaN(id)) {
+    res.status(400).end();
+  }
+  else {
+    users = users.filter(user => user.id !== id)[0]
+    res.status(204).end();
   }
 });
 
