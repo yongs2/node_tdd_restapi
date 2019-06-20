@@ -1,0 +1,19 @@
+# 개발 서버 테스트
+@hostname = 127.0.0.1
+@port = 3000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+
+### 
+# 사용자 추가
+POST http://{{host}}/users/ HTTP/1.1
+content-type: {{contentType}}
+
+{ "name" : "Daniel" }
+
+### 
+# 사용자 추가
+POST http://{{host}}/users/ HTTP/1.1
+content-type: {{contentType}}
+
+{ "name" : "Alice" }

@@ -44,4 +44,27 @@ router.delete('/:id', (req, res) => {
   }
 });
 
+router.post('/', (req, res) => {
+  const name = req.body.name;
+
+  if(name == undefined) {
+    return res.status(400).end();
+  }
+
+  /*
+  const found = users.filter(user => user.name === name).length
+  */
+  const found = users.find(user => user.name === name)
+  if(found !== undefined) { // 중복
+    return res.status(409).end();
+  }
+
+  // 신규
+  const id = Date.now();
+  const user = {id, name};
+  //users.push(user); // 원래는 이 코드가 맞으나, npm test 에서 계속 오류가 발생
+  users[users.length] = user;
+  return res.status(201).json(user);
+});
+
 module.exports = router;

@@ -81,3 +81,40 @@ describe('DELETE /users/:id', () => {
         })
     })
 });
+
+describe('POST /users/', () => {
+    describe('성공', () => {
+        it('201 응답, 생성된 유저 객체를 반환', done => {
+            request(app)
+                .post('/users')
+                .send({name: 'Daniel'})
+                .expect(201)
+                .end(done)
+                /*.end((err, res) => {
+                    if (err) {
+                        console.log("err=", err)
+                        done(err);
+                        return;
+                    }
+                    res.body.should.have.property('name', 'Daniel')
+                    done()
+                })*/
+        })
+    })
+    describe('실패', () => {
+        it('name이 없으면 400을 응답', (done) => {
+            request(app)
+                .post('/users')
+                .send({})
+                .expect(400)
+                .end(done)
+        })
+        it('name이 중복이면 409을 응답', (done) => {
+            request(app)
+                .post('/users')
+                .send({name: 'Alice'})
+                .expect(409)
+                .end(done)
+        })
+    })
+});
