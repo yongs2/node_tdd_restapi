@@ -39,7 +39,7 @@ router.delete('/:id', (req, res) => {
     res.status(400).end();
   }
   else {
-    users = users.filter(user => user.id !== id)[0]
+    users = users.filter(user => user.id !== id)
     res.status(204).end();
   }
 });
@@ -51,13 +51,14 @@ router.post('/', (req, res) => {
     return res.status(400).end();
   }
 
-  /*
   const found = users.filter(user => user.name === name).length
-  */
-  const found = users.find(user => user.name === name)
-  if(found !== undefined) { // 중복
+  if(found) { // 중복
     return res.status(409).end();
   }
+  /*const found = users.find(user => user.name === name)
+  if(found !== undefined) { // 중복
+    return res.status(409).end();
+  }*/
 
   // 신규
   const id = Date.now();
